@@ -17,13 +17,17 @@ class Ball {
  //------ BALL COLLISION ------//
 
   ballCollision() {
-    if (
-      (this.y + this.speedY1 <= player2.y + player2.height &&
-        this.x + this.width + this.speedX1 >= player2.x &&
-        this.y + this.speedY1 > player2.y) ||
-      (this.y + this.speedY1 > player1.y &&
-        this.x + this.speedX1 <= player1.x + player1.width)
-    ) {
+
+   if((this.x<player1.x+player1.width && 
+     this.x+this.width>player1.x &&
+     this.y<player1.y+player1.height &&
+     this.y+player1.height>player1.y)
+     ||
+    (this.x<player2.x+player2.width && 
+     this.x+this.width>player2.x &&
+     this.y<player2.y+player2.height &&
+     this.y+player2.height>player2.y))
+    {
       this.speedX1 *= -1; // Change directtion
     } else if (this.x + this.speedX1 <= player1.x-10) { //Gol player2
       this.score2 += 1;

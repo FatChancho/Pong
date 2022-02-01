@@ -13,7 +13,7 @@ body{
 
 .canvas-game {
     border:3px solid red;
-    background-color: black;
+    background-color:black;
 }
 
 .bg-canvas{
@@ -34,4 +34,16 @@ body{
 #start{
     font-size: 2rem;
     width: auto;
+}
+.hidden{
+    visibility: hidden;
+}
+.game-over{
+    opacity: 0.7;
+}
+
+.centro{
+    position: relative;
+    top:500;
+    left:500;
 }

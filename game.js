@@ -15,13 +15,23 @@ class Game {
     this.play();
   }
 
+  lineCanvas(){
+    ctx.beginPath();
+    ctx.moveTo(canvas.width/2,0);
+    ctx.setLineDash([10, 10])
+    ctx.strokeStyle='#fff';
+    ctx.lineTo(canvas.width/2,canvas.height)
+    ctx.stroke()
+  }
+
   init() {
     if (this.frameNumber) stop();
     this.frameNumber = 0;
     this.flag = false;
-    //const song=new Audio('../Pong/audio/2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3');
+   // const song=new Audio('../Pong/audio/2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3');
     //song.play();
   }
+
   play() {
     if (this.flag === false) {
       this.frameNumber += 1;
@@ -36,7 +46,14 @@ class Game {
     cancelAnimationFrame(this.frameNumber);
     this.frameNumber = null;
     this.ctx.restore();
-    this.ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //this.ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    start.classList.remove('hidden')
+    canvas.classList.add('game-over')
+    const p=document.createElement('p');
+    if(this.checkGameOver===1)p.innerText='Player 1 Wins'
+    else p.innerText='Player 2 Wins'
+    p.classList.add('centro')
+    canvas.appendChild(p);
   }
 
   move() {
@@ -50,13 +67,15 @@ class Game {
     this.player1.draw();
     this.player2.draw();
     this.ball.draw();
+    this.lineCanvas()
     this.drawScore();
   }
 
   checkGameOver() {
-    if (ball.score1 === 4 || ball.score2 === 4) {
+    if (ball.score1 === 1 || ball.score2 === 1) {
       this.flag = true;
       this.stop();
+      return ball.score1>ball.score2 ? 1 : 2
     }
   }
 

@@ -5,7 +5,6 @@ const ctx = canvas.getContext("2d");
 
 
 
-
 // CLASSES
 const player1 = new Player1(ctx);
 const player2 = new Player2(ctx);
@@ -18,7 +17,8 @@ const start = document.getElementById("start");
 start.addEventListener("click", (e) => {
   canvas.classList.remove("bg-canvas");
   canvas.classList.add('canvas-game')
-  start.innerText='TRY AGAIN';
+  start.classList.add('hidden')
+  //start.innerText='TRY AGAIN';
   game.start();
   
 });
