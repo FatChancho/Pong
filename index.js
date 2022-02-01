@@ -3,9 +3,8 @@ canvas.width = 800;
 canvas.height = 500;
 const ctx = canvas.getContext("2d");
 
-//---------AUDIO----------//
-/*const song=new Audio('../Pong/audio/2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3');
-song.play(); */ 
+
+
 
 // CLASSES
 const player1 = new Player1(ctx);
@@ -23,6 +22,15 @@ start.addEventListener("click", (e) => {
   game.start();
   
 });
-//window.addEventListener('keypress',player1.move,false)
+
+document.addEventListener('keydown',(e)=>{
+  game.onKey(e)
+})
+
+document.addEventListener('keyup',()=>{
+  game.onKey(null)
+})
+
+
 
 

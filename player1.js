@@ -6,17 +6,17 @@ class Player1 {
     this.width = 10;
     this.color='#fff'
     this.height = 50;
-    this.speedX = 0.1;
-    this.speedY = 0.1;
+    this.speedX = 5;
+    this.speedY = 5;
     //img
     /*this.img=new Image();
         this.img.src=''//imagen barra*/
   }
   
 
-  move(){
-    document.addEventListener('keydown',event=>{
-      switch(event.key){
+ move(key){
+ 
+      switch(key){
         case 'w':
           if(this.y-this.speedY>0)
             this.y-=this.speedY ; // UP
@@ -34,7 +34,7 @@ class Player1 {
             this.x+=this.speedX;
             break;
       }
-    })
+    
   }
 
   draw() {
