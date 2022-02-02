@@ -9,6 +9,7 @@ class Game {
     this.key1 = null;
     this.key2 = null;
     this.win=0;
+    this.timer=null
   }
 
   start() {
@@ -32,10 +33,12 @@ class Game {
     ball.score2=0
     this.flag = false;  
     this.win=0;
+    ball.x=395;
+    ball.y=245;
     canvas.classList.remove('game-over')
     const player=document.querySelector('p');
     if(player)player.remove();
-    
+       
   }
 
   play() {
@@ -44,6 +47,7 @@ class Game {
       this.move();
       this.draw();
       this.checkGameOver();
+      this.checkTimer();
       requestAnimationFrame(this.play.bind(this));
     }
   }
@@ -54,9 +58,11 @@ class Game {
     canvas.classList.add('game-over')
     const p=document.createElement('p');
     const caja=document.getElementById('caja')
+
     if(this.win===1)p.innerText='Player 1 Wins';
-    
-    else p.innerText='Player 2 Wins';
+    if (this.win===2) p.innerText='Player 2 Wins';
+    if(this.win===0)p.innerText='Loooosers';
+    console.log(this.win)
 
     p.classList.add('centro')
     caja.appendChild(p);
@@ -66,7 +72,6 @@ class Game {
     cancelAnimationFrame(this.frameNumber);
     this.frameNumber = null;
     this.ctx.restore();
-    //this.ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     this.gameOverMsg();
   }
 
@@ -83,19 +88,44 @@ class Game {
     this.ball.draw();
     this.lineCanvas()
     this.drawScore();
+    this.drawTimer()
   }
 
-  checkGameOver() {
-    let p1=1;
-    let p2=2;
+  drawTimer(){
+    this.timer=Math.floor(this.frameNumber/60)*-1;
+    this.ctx.save();
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "16px Arial";
+    this.ctx.fillText(
+      `${10+this.timer} s`,
+      ctx.canvas.width / 2 - 15,
+      30)
+    this.ctx.restore()
+  }
+
+  checkTimer(){/*
+    if(this.timer===-10){
+      this.timer=false;
+      return this.timer;
+    }*/
+    /*if(this.timer%5===-0){ ////check later
+      ball.changeVelocity();
+    }*/
+  }
+  
+  checkGameOver() { //check score 0
     if (ball.score1 === 10 || ball.score2 === 10) {
       this.flag = true;
       ball.score1>ball.score2 ? this.win=1 : this.win=2
       this.stop();
+    }else if(this.timer===-10){
+          this.flag = true;
+          ball.score1>ball.score2 ? this.win=1 
+          : ball.score1===ball.score2 ? this.win=0 
+          : this.win =2 
+          this.stop();
+          }
     }
-    
-  }
-  
 
   drawScore() {
     // this.score = Math.floor(this.frameNumber / 120); timer

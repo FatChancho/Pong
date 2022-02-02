@@ -8,7 +8,7 @@ class Ball {
     this.score1=0;
     this.score2=0;
     this.color = "#fff";
-    this.speedX = [5,-5];
+    this.speedX = [5,5];
     this.speedX1 = this.speedX[Math.floor(Math.random() * 2)]; //change de starting direction
     this.speedY = [5, -5];
     this.speedY1 = this.speedY[Math.floor(Math.random() * 2)]; //change de starting direction
@@ -66,4 +66,10 @@ class Ball {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+
+  /*changeVelocity(){
+    console.log('sdfsf:')
+    this.speedX1+=1;
+    this.speedY1+=1;
+  }*/
 }
