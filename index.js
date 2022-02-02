@@ -12,16 +12,31 @@ const ball = new Ball(ctx);
 const game = new Game(ctx, player1, player2, ball);
 
 //START
-
+const retry = document.getElementById('retry');
 const start = document.getElementById("start");
+
+
+//AUDIO
+
+
+
+//LISTENERS
+
 start.addEventListener("click", (e) => {
-  canvas.classList.remove("bg-canvas");
-  canvas.classList.add('canvas-game')
-  start.classList.add('hidden')
-  //start.innerText='TRY AGAIN';
-  game.start();
-  
+  const target=e.target;
+  if(target.innerText='START'){
+    canvas.classList.remove("bg-canvas");
+    canvas.classList.add('canvas-game')
+    start.classList.add('hidden');
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    game.start();
+  }
+  if(target.innerText===('RETRY')){
+    canvas.classList.remove('game-over')
+    game.start()
+  }
 });
+
 
 document.addEventListener('keydown',(e)=>{
   game.onKey(e)
@@ -31,6 +46,9 @@ document.addEventListener('keyup',()=>{
   game.onKey(null)
 })
 
-
+document.addEventListener("mousemove", (e)=>{
+  if(e.clientY>0 && e.clientY<450)
+  player2.y=e.clientY;
+})
 
 

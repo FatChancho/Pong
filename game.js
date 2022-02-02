@@ -8,6 +8,7 @@ class Game {
     this.flag = false;
     this.key1 = null;
     this.key2 = null;
+    this.win=0;
   }
 
   start() {
@@ -25,11 +26,16 @@ class Game {
   }
 
   init() {
-    if (this.frameNumber) stop();
+    //if (this.frameNumber) stop();
     this.frameNumber = 0;
-    this.flag = false;
-   // const song=new Audio('../Pong/audio/2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3');
-    //song.play();
+    ball.score1=0
+    ball.score2=0
+    this.flag = false;  
+    this.win=0;
+    canvas.classList.remove('game-over')
+    const player=document.querySelector('p');
+    if(player)player.remove();
+    
   }
 
   play() {
@@ -42,18 +48,26 @@ class Game {
     }
   }
 
+  gameOverMsg(){
+    start.innerText='RETRY'
+    start.classList.remove('hidden')
+    canvas.classList.add('game-over')
+    const p=document.createElement('p');
+    const caja=document.getElementById('caja')
+    if(this.win===1)p.innerText='Player 1 Wins';
+    
+    else p.innerText='Player 2 Wins';
+
+    p.classList.add('centro')
+    caja.appendChild(p);
+  }
+
   stop() {
     cancelAnimationFrame(this.frameNumber);
     this.frameNumber = null;
     this.ctx.restore();
     //this.ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    start.classList.remove('hidden')
-    canvas.classList.add('game-over')
-    const p=document.createElement('p');
-    if(this.checkGameOver===1)p.innerText='Player 1 Wins'
-    else p.innerText='Player 2 Wins'
-    p.classList.add('centro')
-    canvas.appendChild(p);
+    this.gameOverMsg();
   }
 
   move() {
@@ -72,12 +86,16 @@ class Game {
   }
 
   checkGameOver() {
-    if (ball.score1 === 1 || ball.score2 === 1) {
+    let p1=1;
+    let p2=2;
+    if (ball.score1 === 10 || ball.score2 === 10) {
       this.flag = true;
+      ball.score1>ball.score2 ? this.win=1 : this.win=2
       this.stop();
-      return ball.score1>ball.score2 ? 1 : 2
     }
+    
   }
+  
 
   drawScore() {
     // this.score = Math.floor(this.frameNumber / 120); timer
@@ -109,6 +127,9 @@ class Game {
         case 'w':{
           this.key1=event.key;
           break;}
+        case 'd':{
+          this.key1=event.key;
+            break;}
         case 'ArrowUp':{
           this.key2=event.key;
           break;

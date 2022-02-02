@@ -8,9 +8,9 @@ class Ball {
     this.score1=0;
     this.score2=0;
     this.color = "#fff";
-    this.speedX = [3,-3];
+    this.speedX = [5,-5];
     this.speedX1 = this.speedX[Math.floor(Math.random() * 2)]; //change de starting direction
-    this.speedY = [3, -3];
+    this.speedY = [5, -5];
     this.speedY1 = this.speedY[Math.floor(Math.random() * 2)]; //change de starting direction
   }
 
@@ -29,6 +29,7 @@ class Ball {
      this.y+player2.height>player2.y))
     {
       this.speedX1 *= -1; // Change directtion
+
     } else if (this.x + this.speedX1 <= player1.x-10) { //Gol player2
       this.score2 += 1;
       this.speedX1 *= -1;
