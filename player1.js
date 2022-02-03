@@ -6,10 +6,9 @@ class Player1 {
     this.width = 10;
     this.color = "#fff";
     this.height = 50;
-    this.speedX = 12;
-    this.speedY = 12;
+    this.speedY = 14;
     this.img = new Image();
-    this.img.src = "/Pong/Images/imagen-1.png.png";
+    this.img.src = "/Pong/Images/paddle1.gif";
   }
 
   move(key) {
@@ -19,22 +18,12 @@ class Player1 {
         break;
       case "s": // DOWN
         if (this.y + this.height < 500) this.y += this.speedY;
-        break; /*
-        case "a":
-            if(this.x>0)
-            this.x-=this.speedX; // LEFT
-            break;
-        case "d": // RIGHT
-            if(this.x+this.width<300)
-            this.x+=this.speedX;
-            break;*/
+        break; 
     }
   }
 
   draw() {
     this.ctx.fillStyle = this.color;
     this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
-    //this.ctx.stroke();
   }
 }
