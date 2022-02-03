@@ -31,6 +31,7 @@ class Game {
     ball.x = 395;
     ball.y = 245;
     ball.const = 0;
+    presentationSong.pause();
     canvas.classList.remove("game-over");
     const player = document.querySelector("p");
     if (player) player.remove();
