@@ -16,9 +16,7 @@ const start = document.getElementById("start");
 
 //AUDIO
 const presentationSong = new Audio("/Pong/audio/presentation-sound.wav");
-setInterval(() => {
-  //presentationSong.play()
-}, 1000);
+presentationSong.play();
 
 //LISTENERS
 
