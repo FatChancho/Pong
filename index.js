@@ -38,13 +38,16 @@ start.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
+  event.preventDefault()
   game.onKey(e);
 });
 
 document.addEventListener("keyup", () => {
+  event.preventDefault()
   game.onKey(null);
 });
 
 document.addEventListener("mousemove", (e) => {
+  event.preventDefault()
   if (e.clientY > 0 && e.clientY < 450) player2.y = e.clientY;
 });
