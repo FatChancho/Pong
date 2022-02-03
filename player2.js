@@ -8,7 +8,7 @@ class Player2 {
     this.height = 50;
     this.speedY = 14;
     this.img = new Image();
-    this.img.src = "/Pong/Images/paddle1.gif";
+    this.img.src = "/Pong/Images/paddle2.png";
   }
 
   move(key) {
