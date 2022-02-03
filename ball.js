@@ -3,8 +3,8 @@ class Ball {
     this.ctx = ctx;
     this.x = 395;
     this.y = 245;
-    this.width = 10;
-    this.height = 10;
+    this.width = 15;
+    this.height = 15;
     this.score1 = 0;
     this.score2 = 0;
     this.color = "#fff";
@@ -14,6 +14,8 @@ class Ball {
     this.speedY1 = this.speedY[Math.floor(Math.random() * 2)]; //change de starting direction
     this.bounce = new Audio("/Pong/audio/bounce.wav");
     this.gol = new Audio("/Pong/audio/gol.wav");
+    this.image= new Image();
+    this.image.src='/Pong/Images/ball.png'
   }
 
   //------ BALL COLLISION PADDLES ------//
@@ -29,13 +31,14 @@ class Ball {
         this.y < player2.y + player2.height &&
         this.y + player2.height > player2.y)
     ) {
-      this.speedX1 = -(this.speedX1 + this.speedX1 / 5); // Change directtion
+      this.speedX1 = -(this.speedX1 + this.speedX1 / 6); // Change directtion
       this.bounce.play();
     } else if (this.x + this.speedX1 <= player1.x - 10) {
       //Gol player2
       this.gol.play();
       this.score2 += 1;
       this.speedX1 = 5;
+      this.speedY1 = 5;
       this.x = 395; // ball position center
       this.y = 245; // ball position center
     } else if (this.x + this.speedX1 >= player2.x + player2.width) {
@@ -43,6 +46,7 @@ class Ball {
       this.gol.play();
       this.score1 += 1;
       this.speedX1 = 5;
+      this.speedY1 = 5;
       this.x = 395; // ball position center
       this.y = 245; // ball position center
     }
@@ -65,6 +69,6 @@ class Ball {
 
   draw() {
     this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.ctx.drawImage(this.image,this.x, this.y, this.width, this.height);
   }
 }
