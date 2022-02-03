@@ -22,15 +22,6 @@ class Game {
     this.gameSong.play();
   }
 
-  lineCanvas() {
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2, 0);
-    ctx.setLineDash([10, 10]);
-    ctx.strokeStyle = "#fff";
-    ctx.lineTo(canvas.width / 2, canvas.height);
-    ctx.stroke();
-  }
-
   init() {
     this.frameNumber = 0;
     ball.score1 = 0;
@@ -40,6 +31,7 @@ class Game {
     ball.x = 395;
     ball.y = 245;
     ball.const = 0;
+    presentationSong.pause();
     canvas.classList.remove("game-over");
     const player = document.querySelector("p");
     if (player) player.remove();
@@ -53,23 +45,6 @@ class Game {
       this.checkGameOver();
       requestAnimationFrame(this.play.bind(this));
     }
-  }
-
-  gameOverMsg() {
-    start.innerText = "RETRY";
-    start.classList.remove("hidden");
-    canvas.classList.add("game-over");
-    this.gameSong.pause();
-    const p = document.createElement("p");
-    const caja = document.getElementById("caja");
-    this.gameover.play();
-
-    if (this.win === 1) p.innerText = "Player 1 Wins";
-    if (this.win === 2) p.innerText = "Player 2 Wins";
-    if (this.win === 0) p.innerText = "Loooosers";
-
-    p.classList.add("centro");
-    caja.appendChild(p);
   }
 
   stop() {
@@ -90,22 +65,54 @@ class Game {
     this.player1.draw();
     this.player2.draw();
     this.ball.draw();
-    this.lineCanvas();
+    this.drawDashLineCanvas();
     this.drawScore();
     this.drawTimer();
+  }
+
+  drawDashLineCanvas() {
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.setLineDash([10, 10]);
+    ctx.strokeStyle = "#fff";
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
+  }
+
+  drawScore() {
+    this.ctx.save();
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "20px Arial";
+    this.ctx.fillText(
+      `Score: ${ball.score1} pts`,
+      ctx.canvas.width / 2 - 300,
+      30
+    );
+    this.ctx.restore();
+    //------player 2 ----------//
+    this.score = Math.floor(this.frameNumber / 5);
+    this.ctx.save();
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "20px Arial";
+    this.ctx.fillText(
+      `Score: ${ball.score2} pts`,
+      ctx.canvas.width / 2 + 180,
+      30
+    );
+    this.ctx.restore();
   }
 
   drawTimer() {
     this.timer = Math.floor(this.frameNumber / 60) * -1;
     this.ctx.save();
     this.ctx.fillStyle = "yellow";
-    this.ctx.font = "16px Arial";
+    this.ctx.font = "20px Arial";
     this.ctx.fillText(`${30 + this.timer} s`, ctx.canvas.width / 2 - 15, 30);
     this.ctx.restore();
   }
 
   checkGameOver() {
-    if (ball.score1 === 10 || ball.score2 === 10) {
+    if (ball.score1 === 5 || ball.score2 === 5) {
       this.flag = true;
       ball.score1 > ball.score2 ? (this.win = 1) : (this.win = 2);
       this.stop();
@@ -120,28 +127,22 @@ class Game {
     }
   }
 
-  drawScore() {
-    // this.score = Math.floor(this.frameNumber / 120); timer
-    this.ctx.save();
-    this.ctx.fillStyle = "white";
-    this.ctx.font = "16px Arial";
-    this.ctx.fillText(
-      `Score: ${ball.score1} pts`,
-      ctx.canvas.width / 2 - 300,
-      30
-    );
-    this.ctx.restore();
-    //------player 2 ----------//
-    this.score = Math.floor(this.frameNumber / 5);
-    this.ctx.save();
-    this.ctx.fillStyle = "white";
-    this.ctx.font = "16px Arial";
-    this.ctx.fillText(
-      `Score: ${ball.score2} pts`,
-      ctx.canvas.width / 2 + 180,
-      30
-    );
-    this.ctx.restore();
+  gameOverMsg() {
+    start.innerText = "RETRY";
+    start.classList.remove("hidden");
+    canvas.classList.add("game-over");
+    this.gameSong.pause();
+    const p = document.createElement("p");
+    p.classList.add('player-wins');
+    const caja = document.getElementById("caja");
+    this.gameover.play();
+
+    if (this.win === 1) p.innerText = "Player 1 Wins";
+    if (this.win === 2) p.innerText = "Player 2 Wins";
+    if (this.win === 0) p.innerText = "Loooosers";
+
+    p.classList.add("centro");
+    caja.appendChild(p);
   }
 
   onKey(event) {

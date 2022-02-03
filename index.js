@@ -15,10 +15,10 @@ const game = new Game(ctx, player1, player2, ball);
 const start = document.getElementById("start");
 
 //AUDIO
-const presentationSong = new Audio("/Pong/audio/presentation-sound.wav");
-setInterval(() => {
-  //presentationSong.play()
-}, 1000);
+const presentationSong = new Audio("/Pong/audio/presentation-song.wav");
+
+presentationSong.play()
+
 
 //LISTENERS
 
