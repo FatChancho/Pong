@@ -8,37 +8,41 @@ class Game {
     this.flag = false;
     this.key1 = null;
     this.key2 = null;
-    this.win=0;
-    this.timer=null
+    this.win = 0;
+    this.timer = null;
+    this.gameover = new Audio("/Pong/audio/gameover.mp3");
+    this.gameSong = new Audio(
+      "/Pong/audio/2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3"
+    );
   }
 
   start() {
     this.init();
     this.play();
+    this.gameSong.play();
   }
 
-  lineCanvas(){
+  lineCanvas() {
     ctx.beginPath();
-    ctx.moveTo(canvas.width/2,0);
-    ctx.setLineDash([10, 10])
-    ctx.strokeStyle='#fff';
-    ctx.lineTo(canvas.width/2,canvas.height)
-    ctx.stroke()
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.setLineDash([10, 10]);
+    ctx.strokeStyle = "#fff";
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
   }
 
   init() {
-    //if (this.frameNumber) stop();
     this.frameNumber = 0;
-    ball.score1=0
-    ball.score2=0
-    this.flag = false;  
-    this.win=0;
-    ball.x=395;
-    ball.y=245;
-    canvas.classList.remove('game-over')
-    const player=document.querySelector('p');
-    if(player)player.remove();
-       
+    ball.score1 = 0;
+    ball.score2 = 0;
+    this.flag = false;
+    this.win = 0;
+    ball.x = 395;
+    ball.y = 245;
+    ball.const = 0;
+    canvas.classList.remove("game-over");
+    const player = document.querySelector("p");
+    if (player) player.remove();
   }
 
   play() {
@@ -47,24 +51,24 @@ class Game {
       this.move();
       this.draw();
       this.checkGameOver();
-      this.checkTimer();
       requestAnimationFrame(this.play.bind(this));
     }
   }
 
-  gameOverMsg(){
-    start.innerText='RETRY'
-    start.classList.remove('hidden')
-    canvas.classList.add('game-over')
-    const p=document.createElement('p');
-    const caja=document.getElementById('caja')
+  gameOverMsg() {
+    start.innerText = "RETRY";
+    start.classList.remove("hidden");
+    canvas.classList.add("game-over");
+    this.gameSong.pause();
+    const p = document.createElement("p");
+    const caja = document.getElementById("caja");
+    this.gameover.play();
 
-    if(this.win===1)p.innerText='Player 1 Wins';
-    if (this.win===2) p.innerText='Player 2 Wins';
-    if(this.win===0)p.innerText='Loooosers';
-    console.log(this.win)
+    if (this.win === 1) p.innerText = "Player 1 Wins";
+    if (this.win === 2) p.innerText = "Player 2 Wins";
+    if (this.win === 0) p.innerText = "Loooosers";
 
-    p.classList.add('centro')
+    p.classList.add("centro");
     caja.appendChild(p);
   }
 
@@ -86,46 +90,35 @@ class Game {
     this.player1.draw();
     this.player2.draw();
     this.ball.draw();
-    this.lineCanvas()
+    this.lineCanvas();
     this.drawScore();
-    this.drawTimer()
+    this.drawTimer();
   }
 
-  drawTimer(){
-    this.timer=Math.floor(this.frameNumber/60)*-1;
+  drawTimer() {
+    this.timer = Math.floor(this.frameNumber / 60) * -1;
     this.ctx.save();
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "yellow";
     this.ctx.font = "16px Arial";
-    this.ctx.fillText(
-      `${10+this.timer} s`,
-      ctx.canvas.width / 2 - 15,
-      30)
-    this.ctx.restore()
+    this.ctx.fillText(`${30 + this.timer} s`, ctx.canvas.width / 2 - 15, 30);
+    this.ctx.restore();
   }
 
-  checkTimer(){/*
-    if(this.timer===-10){
-      this.timer=false;
-      return this.timer;
-    }*/
-    /*if(this.timer%5===-0){ ////check later
-      ball.changeVelocity();
-    }*/
-  }
-  
-  checkGameOver() { //check score 0
+  checkGameOver() {
     if (ball.score1 === 10 || ball.score2 === 10) {
       this.flag = true;
-      ball.score1>ball.score2 ? this.win=1 : this.win=2
+      ball.score1 > ball.score2 ? (this.win = 1) : (this.win = 2);
       this.stop();
-    }else if(this.timer===-10){
-          this.flag = true;
-          ball.score1>ball.score2 ? this.win=1 
-          : ball.score1===ball.score2 ? this.win=0 
-          : this.win =2 
-          this.stop();
-          }
+    } else if (this.timer === -30) {
+      this.flag = true;
+      ball.score1 > ball.score2
+        ? (this.win = 1)
+        : ball.score1 === ball.score2
+        ? (this.win = 0)
+        : (this.win = 2);
+      this.stop();
     }
+  }
 
   drawScore() {
     // this.score = Math.floor(this.frameNumber / 120); timer
@@ -151,31 +144,33 @@ class Game {
     this.ctx.restore();
   }
 
-  onKey(event){
-    if(event){
-      switch(event.key){
-        case 'w':{
-          this.key1=event.key;
-          break;}
-        case 'd':{
-          this.key1=event.key;
-            break;}
-        case 'ArrowUp':{
-          this.key2=event.key;
+  onKey(event) {
+    if (event) {
+      switch (event.key) {
+        case "w": {
+          this.key1 = event.key;
           break;
         }
-        case 's':{
-          this.key1=event.key;
+        case "d": {
+          this.key1 = event.key;
           break;
         }
-        case 'ArrowDown':{
-          this.key2=event.key;
-          break
+        case "ArrowUp": {
+          this.key2 = event.key;
+          break;
+        }
+        case "s": {
+          this.key1 = event.key;
+          break;
+        }
+        case "ArrowDown": {
+          this.key2 = event.key;
+          break;
         }
       }
-    }else{
-      this.key1=null;
-      this.key2=null;
+    } else {
+      this.key1 = null;
+      this.key2 = null;
     }
   }
 }

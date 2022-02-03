@@ -1,58 +1,56 @@
-body{
-    margin:0
-    
+body {
+  background-image: url(../Images/fondo.jpg);
+  background-size: 100%;
+  margin: 0;
 }
-.canvas{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    margin-top: 5rem;
-    
+.canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 5rem;
 }
 
 .canvas-game {
-    border:3px solid red;
-    background-color:black;
+  border: 3px solid red;
+  background-color: black;
+  opacity: 0.8;
+  cursor: none;
 }
 
-.bg-canvas{
-    background-image: url(../Images/Atari_Pong_Console_logo.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: -115px;
-    border:1px solid black
-    
+.bg-canvas {
+  background-image: url(../Images/New\ Piskel.gif);
+  background-repeat: no-repeat;
+  background-position: 220px;
+  background-position-y: bottom;
 }
 
-.btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-    gap:3rem;
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 3rem;
+}
+#start {
+  font-size: 2rem;
+  width: auto;
+}
+#retry {
+  font-size: 2rem;
+  width: auto;
+}
+.hidden {
+  visibility: hidden;
+}
+.game-over {
+  opacity: 0.7;
+}
 
-}
-#start{
-    font-size: 2rem;
-    width: auto;
-}
-#retry{
-    font-size: 2rem;
-    width: auto;
-}
-.hidden{
-    visibility: hidden;
-}
-.game-over{
-    opacity: 0.7;
-}
-
-.centro{
-    position: absolute;
-    font-size: 2rem;
-    top:400px;
-    color:white;
-    text-shadow:2px 1px 2px black;;
-    
+.centro {
+  position: absolute;
+  font-size: 2rem;
+  top: 400px;
+  color: white;
+  text-shadow: 2px 1px 2px black;
 }
