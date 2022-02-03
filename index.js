@@ -15,7 +15,7 @@ const game = new Game(ctx, player1, player2, ball);
 const start = document.getElementById("start");
 
 //AUDIO
-const presentationSong = new Audio("/Pong/audio/presentation-sound.wav");
+const presentationSong = new Audio("/Pong/audio/intro-song.mp3");
 presentationSong.play();
 
 //LISTENERS
