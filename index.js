@@ -11,7 +11,6 @@ const ball = new Ball(ctx);
 const game = new Game(ctx, player1, player2, ball);
 
 //START
-//const retry = document.getElementById("retry");
 const start = document.getElementById("start");
 
 //AUDIO
